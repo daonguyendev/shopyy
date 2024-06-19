@@ -1,1 +1,1 @@
-## shopyy - ecommerce website project
+## shopyy - ecomerce wedsite project
