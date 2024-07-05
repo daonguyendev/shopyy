@@ -1,10 +1,7 @@
 package com.codegym.shopyy.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,12 +19,12 @@ public class Rating {
     private Long id;
 
     @Column(nullable = false)
-    private int ratingPoints;
-
-    @Column(nullable = false)
     private int ratingStars;
 
-    @Column(nullable = false)
-    private String ratingDetails;
+    @ManyToOne
+    @JoinColumn(name = "comment_id", nullable = false)
+    @JsonIgnoreProperties({"comments"})
+    private Comment comment;
+
 }
 
