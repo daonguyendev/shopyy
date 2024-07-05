@@ -1,0 +1,85 @@
+package com.codegym.shopyy.controller;
+
+import com.codegym.shopyy.dto.request.CategoryRequestDto;
+import com.codegym.shopyy.dto.request.ProductRequestDto;
+import com.codegym.shopyy.dto.response.ResponsePage;
+import com.codegym.shopyy.model.Product;
+import com.codegym.shopyy.service.impl.ProductServiceImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/products")
+@CrossOrigin(origins = "*")
+public class ProductController {
+
+    @Autowired
+    private ProductServiceImpl productService;
+
+    @GetMapping
+    public ResponseEntity<Page<Product>> homeProduct(@RequestParam(defaultValue = "", required = false) String search,
+                                                     @PageableDefault(page = 0, size = 3) Pageable pageable) {
+
+        Page<Product> productPage;
+        if (!search.isEmpty()) {
+            productPage = productService.findByName(pageable, search);
+        } else {
+            productPage = (Page<Product>) productService.findAll(pageable);
+        }
+
+        if (productPage.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(productPage, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<ResponsePage> save(@RequestBody ProductRequestDto productRequestDto) {
+        ResponsePage responsePage = productService.save(productRequestDto);
+        return new ResponseEntity<>(responsePage, responsePage.getStatus());
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<ResponsePage> saveProduct(@RequestBody ProductRequestDto productRequestDto) {
+        Optional<Product> productOptional = productService.findById(productRequestDto.getId());
+        if (productOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        Product product = productOptional.get();
+        product.setName(productRequestDto.getName());
+        product.setPrice(productRequestDto.getPrice());
+        product.setDescription(productRequestDto.getDescription());
+        product.setQuantity(productRequestDto.getQuantity());
+        product.setAvatar(productRequestDto.getAvatar());
+        product.setSubCategory(productRequestDto.getSubCategory());
+        product.setColors(productRequestDto.getColors());
+        product.setSizes(productRequestDto.getSizes());
+
+         ResponsePage responsePage = productService.save(productRequestDto);
+         return new ResponseEntity<>(responsePage, responsePage.getStatus());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Product>> findByIdProduct(@PathVariable Long id) {
+        Optional<Product> productOptional = productService.findById(id);
+        return new ResponseEntity<>(productOptional, HttpStatus.OK);
+    }
+}
