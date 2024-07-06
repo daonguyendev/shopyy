@@ -3,6 +3,8 @@ package com.codegym.shopyy.controller;
 import com.codegym.shopyy.dto.request.CategoryRequestDto;
 import com.codegym.shopyy.dto.response.ResponsePage;
 import com.codegym.shopyy.model.Category;
+import com.codegym.shopyy.model.Product;
+import com.codegym.shopyy.model.SubCategory;
 import com.codegym.shopyy.service.impl.CategoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -73,5 +79,40 @@ public class CategoryController {
     public ResponseEntity<Optional<Category>> findByIdCategory(@PathVariable Long id) {
         Optional<Category> categoryOptional = categoryService.findById(id);
         return new ResponseEntity<>(categoryOptional, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
+        Optional<Category> categoryOptional = categoryService.findById(id);
+        if (categoryOptional.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        categoryService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    // lỗi 204
+    @PostMapping("/search")
+    public ResponseEntity<Map<Category, Iterable<SubCategory>>> searchCategory(@PageableDefault(page = 0, size = 3) Pageable pageable,
+                                                                               @RequestParam(name = "search") Optional<String> search) {
+        Map<Category, Iterable<SubCategory>> result = new HashMap<>();
+        Page<Category> categoryPage;
+        if (search.isPresent()) {
+            categoryPage = categoryService.findByName(pageable, search.get());
+            if (!categoryPage.hasContent()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+        } else {
+            categoryPage = (Page<Category>) categoryService.findAll(pageable);
+        }
+
+        for (Category category : categoryPage) {
+            Iterable<SubCategory> subCategories = categoryService.findSubCategory(category);
+            result.put(category, subCategories);
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

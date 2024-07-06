@@ -13,6 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +41,7 @@ public class ProductController {
         if (!search.isEmpty()) {
             productPage = productService.findByName(pageable, search);
         } else {
-            productPage = (Page<Product>) productService.findAll(pageable);
+            productPage = productService.findAll(pageable);
         }
 
         if (productPage.isEmpty()) {
@@ -73,13 +74,53 @@ public class ProductController {
         product.setColors(productRequestDto.getColors());
         product.setSizes(productRequestDto.getSizes());
 
-         ResponsePage responsePage = productService.save(productRequestDto);
-         return new ResponseEntity<>(responsePage, responsePage.getStatus());
+        ResponsePage responsePage = productService.save(productRequestDto);
+        return new ResponseEntity<>(responsePage, responsePage.getStatus());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Product>> findByIdProduct(@PathVariable Long id) {
         Optional<Product> productOptional = productService.findById(id);
         return new ResponseEntity<>(productOptional, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+        Optional<Product> optionalProduct = productService.findById(id);
+        if (optionalProduct.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        productService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<Page<Product>> searchProduct( Pageable pageable, @RequestParam( name = "search") Optional<String> search) {
+        Page<Product> productPage;
+        if (search.isPresent()) {
+            productPage = productService.findByName( pageable,search.get());
+            if (!productPage.hasContent()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+        } else {
+            productPage = productService.findAll(pageable);
+        }
+        return new ResponseEntity<>(productPage, HttpStatus.OK);
+    }
+
+    @GetMapping("/price")
+    public ResponseEntity<Page<Product>> priceProduct(@RequestParam (name = "value") String value, Pageable pageable) {
+
+        Page<Product> productPage;
+
+        if (value.equalsIgnoreCase("ASC")) {
+            productPage = productService.findAllByOrderByPriceAsc(pageable);
+        } else if (value.equalsIgnoreCase("DESC")) {
+            productPage = productService.findAllByOrderByPriceDesc(pageable);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(productPage, HttpStatus.OK);
     }
 }
