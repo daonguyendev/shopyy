@@ -1,2 +1,9 @@
-package com.codegym.shopyy.converter;public class ISubCategoryConverter {
+package com.codegym.shopyy.converter;
+
+import com.codegym.shopyy.dto.request.SubCategoryRequestDto;
+import com.codegym.shopyy.model.SubCategory;
+
+public interface ISubCategoryConverter {
+
+    SubCategory dtoToEntity(SubCategoryRequestDto subCategoryRequestDto);
 }

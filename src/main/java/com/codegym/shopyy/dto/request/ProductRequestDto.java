@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -21,7 +22,7 @@ public class ProductRequestDto {
 
     private String name;
 
-    private Double price;
+    private BigDecimal price;
 
     private String description;
 

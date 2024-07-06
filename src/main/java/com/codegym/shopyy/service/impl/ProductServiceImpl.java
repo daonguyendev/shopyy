@@ -4,6 +4,7 @@ import com.codegym.shopyy.converter.IProductConverter;
 import com.codegym.shopyy.dto.request.ProductRequestDto;
 import com.codegym.shopyy.dto.response.ResponsePage;
 import com.codegym.shopyy.model.Product;
+import com.codegym.shopyy.model.SubCategory;
 import com.codegym.shopyy.repository.IProductRepository;
 import com.codegym.shopyy.service.IProductService;
 import org.slf4j.Logger;
@@ -13,7 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
@@ -29,12 +31,27 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public Page<Product> findByName(Pageable pageable, String name) {
-        return productRepository.findByName(pageable, name);
+        return productRepository.findByName(name, pageable);
     }
 
     @Override
-    public Iterable<Product> findAll(Pageable pageable) {
+    public Page<Product> findAll(Pageable pageable) {
         return productRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Product> findAllByOrderByPriceAsc(Pageable pageable) {
+        return productRepository.findAllByOrderByPriceAsc(pageable);
+    }
+
+    @Override
+    public Page<Product> findAllByOrderByPriceDesc(Pageable pageable) {
+        return productRepository.findAllByOrderByPriceDesc(pageable);
+    }
+
+    @Override
+    public Page<Product> findAllByPriceBetween(BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable) {
+        return productRepository.findAllByPriceBetween(minPrice, maxPrice, pageable);
     }
 
     @Override
@@ -47,8 +64,8 @@ public class ProductServiceImpl implements IProductService {
     public ResponsePage save(ProductRequestDto productRequestDto) {
 
         LOGGER.info("ComputerServiceImpl -> save invoked!!!");
-
         Product product = productConverter.dtoToEntity(productRequestDto);
+
         try {
             productRepository.save(product);
             return ResponsePage.builder()

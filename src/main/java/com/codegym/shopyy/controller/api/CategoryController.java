@@ -1,9 +1,8 @@
-package com.codegym.shopyy.controller;
+package com.codegym.shopyy.controller.api;
 
 import com.codegym.shopyy.dto.request.CategoryRequestDto;
 import com.codegym.shopyy.dto.response.ResponsePage;
 import com.codegym.shopyy.model.Category;
-import com.codegym.shopyy.model.Product;
 import com.codegym.shopyy.model.SubCategory;
 import com.codegym.shopyy.service.impl.CategoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -93,10 +91,10 @@ public class CategoryController {
     }
 
 
-    // lỗi 204
+
     @PostMapping("/search")
-    public ResponseEntity<Map<Category, Iterable<SubCategory>>> searchCategory(@PageableDefault(page = 0, size = 3) Pageable pageable,
-                                                                               @RequestParam(name = "search") Optional<String> search) {
+    public ResponseEntity<Map<Category, Iterable<SubCategory>>> searchCategory(@PageableDefault(page = 0) Pageable pageable,
+                                                                               @RequestParam("search") Optional<String> search) {
         Map<Category, Iterable<SubCategory>> result = new HashMap<>();
         Page<Category> categoryPage;
         if (search.isPresent()) {
@@ -109,7 +107,7 @@ public class CategoryController {
         }
 
         for (Category category : categoryPage) {
-            Iterable<SubCategory> subCategories = categoryService.findSubCategory(category);
+            Iterable<SubCategory> subCategories = categoryService.findSubCategoriesByCategory(category);
             result.put(category, subCategories);
         }
 

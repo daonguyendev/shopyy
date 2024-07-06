@@ -1,6 +1,5 @@
-package com.codegym.shopyy.controller;
+package com.codegym.shopyy.controller.api;
 
-import com.codegym.shopyy.dto.request.CategoryRequestDto;
 import com.codegym.shopyy.dto.request.ProductRequestDto;
 import com.codegym.shopyy.dto.response.ResponsePage;
 import com.codegym.shopyy.model.Product;
@@ -78,6 +77,7 @@ public class ProductController {
         return new ResponseEntity<>(responsePage, responsePage.getStatus());
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Product>> findByIdProduct(@PathVariable Long id) {
         Optional<Product> productOptional = productService.findById(id);
@@ -96,10 +96,10 @@ public class ProductController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<Page<Product>> searchProduct( Pageable pageable, @RequestParam( name = "search") Optional<String> search) {
+    public ResponseEntity<Page<Product>> searchProduct(Pageable pageable, @RequestParam(name = "search") Optional<String> search) {
         Page<Product> productPage;
         if (search.isPresent()) {
-            productPage = productService.findByName( pageable,search.get());
+            productPage = productService.findByName(pageable, search.get());
             if (!productPage.hasContent()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
