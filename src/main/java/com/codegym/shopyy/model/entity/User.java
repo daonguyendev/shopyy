@@ -1,6 +1,12 @@
-package com.codegym.shopyy.model;
+package com.codegym.shopyy.model.entity;
 
-import jakarta.persistence.*;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +15,6 @@ import lombok.Setter;
 import java.util.Date;
 
 @Entity
-@Table(name = "users")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,31 +22,22 @@ import java.util.Date;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "fullname")
-    private String fullName;
+    private String full_name;
 
-    @Column(name = "username")
     private String username;
 
-    @Column(name = "password")
     private String password;
 
-    @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "phone", unique = true)
     private String phone;
 
-    @Column(name = "gender")
     private String gender;
 
-    @Column(name = "dob")
     private Date dob;
 
-    @Column(name = "image")
     private String image;
 
     @ManyToOne

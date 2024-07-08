@@ -1,13 +1,18 @@
-package com.codegym.shopyy.model;
+package com.codegym.shopyy.model.entity;
 
-import jakarta.persistence.*;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "address")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -15,23 +20,17 @@ import lombok.Setter;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "fullname")
-    private String fullName;
+    private String full_Name;
 
-    @Column(name = "phone")
     private String phone;
 
-    @Column(name = "address")
     private String address;
 
-    @Column(name = "addressDetails")
-    private String addressDetails;
+    private String address_detail;
 
-    @Column(name = "addressType")
-    private String addressType;
+    private String address_type;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
