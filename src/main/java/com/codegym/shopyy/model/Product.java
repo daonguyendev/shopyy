@@ -7,6 +7,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,26 +22,11 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDetail {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    @JsonIgnoreProperties({"productDetails"})
-    private Product product;
-
-    @ManyToOne
-    @JoinColumn(name = "color_id", nullable = false)
-    @JsonIgnoreProperties({"productDetails"})
-    private Color color;
-
-    @ManyToOne
-    @JoinColumn(name = "size_id", nullable = false)
-    @JsonIgnoreProperties({"productDetails"})
-    private Size size;
 
     @Column(nullable = false)
     private String name;
@@ -54,22 +41,28 @@ public class ProductDetail {
     private int quantity;
 
     @Column(nullable = false)
-    private String mainImage;
+    private String avatar;
 
     @ManyToOne
     @JoinColumn(name = "sub_category_id", nullable = false)
     @JsonIgnoreProperties({"products", "category"})
     private SubCategory subCategory;
 
-    @Column(nullable = false)
-    private String returnPolicy;
+    @ManyToMany
+    @JoinTable(
+            name = "product_color",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "color_id")
+    )
+    @JsonIgnoreProperties({"products"})
+    private List<Color> colors;
 
-    @Column(nullable = false)
-    private String shippingDetails;
-
-    @Column(nullable = false)
-    private int purchaseQuantity;
-
-    @Column(nullable = false)
-    private int stock;
+    @ManyToMany
+    @JoinTable(
+            name = "product_size",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "size_id")
+    )
+    @JsonIgnoreProperties({"products"})
+    private List<Size> sizes;
 }

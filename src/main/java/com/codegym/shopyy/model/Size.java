@@ -1,37 +1,32 @@
 package com.codegym.shopyy.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Rating {
+public class Size {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private int ratingStars;
+    private String sizeName;
 
-    @ManyToOne
-    @JoinColumn(name = "comment_id", nullable = false)
-    @JsonIgnoreProperties({"comments"})
-    private Comment comment;
 
+    @ManyToMany(mappedBy = "sizes")
+    @JsonIgnoreProperties("sizes")
+    private List<Product> products;
 }
-
