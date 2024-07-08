@@ -36,14 +36,11 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         try {
-            // Gọi hàm authenticate để xác thực thông tin đăng nhập
             Authentication authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(
                             loginRequest.getUsername(), loginRequest.getPassword()));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            // Gọi hàm tạo Token
             String token = tokenProvider.generateToken(authentication);
             return new ResponseEntity<>(new LoginResponse("Đăng nhập thành công!", token), HttpStatus.OK);
         } catch (Exception e) {

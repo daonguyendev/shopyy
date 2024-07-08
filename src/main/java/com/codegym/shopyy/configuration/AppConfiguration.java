@@ -24,9 +24,4 @@ public class AppConfiguration implements WebMvcConfigurer {
                 .allowCredentials(false)
                 .maxAge(MAX_AGE_SECS);
     }
-
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
 }

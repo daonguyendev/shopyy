@@ -22,15 +22,15 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String full_Name;
+    private String fullName;
 
     private String phone;
 
     private String address;
 
-    private String address_detail;
+    private String addressDetail;
 
-    private String address_type;
+    private String addressType;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
