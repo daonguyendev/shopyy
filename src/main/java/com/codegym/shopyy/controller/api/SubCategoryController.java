@@ -1,5 +1,6 @@
 package com.codegym.shopyy.controller.api;
 
+import com.codegym.shopyy.constant.PageConstant;
 import com.codegym.shopyy.dto.request.SubCategoryRequestDto;
 import com.codegym.shopyy.dto.response.ResponsePage;
 import com.codegym.shopyy.model.Category;
@@ -33,12 +34,10 @@ public class SubCategoryController {
     @Autowired
     private SubCategoryServiceImpl subCategoryService;
 
-    private static final int DEFAULT_PAGE = 0;
-    private static final int PAGE_SIZE = 3;
 
     @GetMapping
     public ResponseEntity<Page<SubCategory>> homeSubCategory(@RequestParam(defaultValue = "", required = false) String search,
-                                                             @PageableDefault(page = DEFAULT_PAGE)Pageable pageable) {
+                                                             @PageableDefault(page = PageConstant.DEFAULT_PAGE)Pageable pageable) {
         Page<SubCategory> subCategoryPage;
         if (search.isEmpty()) {
             subCategoryPage = subCategoryService.findByName(pageable, search);
@@ -66,8 +65,10 @@ public class SubCategoryController {
         }
 
         SubCategory subCategory =  subCategoryOptional.get();
-        subCategory.setName(subCategoryRequestDto.getName());
-        subCategory.setCategory(subCategoryRequestDto.getCategory());
+        if (Optional.ofNullable(subCategory).isPresent()) {
+            subCategory.setName(subCategoryRequestDto.getName());
+            subCategory.setCategory(subCategoryRequestDto.getCategory());
+        }
 
         ResponsePage responsePage = subCategoryService.save(subCategoryRequestDto);
         return new ResponseEntity<>(responsePage, responsePage.getStatus());
@@ -90,7 +91,7 @@ public class SubCategoryController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<Map<SubCategory, Iterable<Product>>> searchSubCategory(@PageableDefault(page = DEFAULT_PAGE) Pageable pageable,
+    public ResponseEntity<Map<SubCategory, Iterable<Product>>> searchSubCategory(@PageableDefault(page = PageConstant.DEFAULT_PAGE) Pageable pageable,
                                                                                  @RequestParam("search") Optional<String> search) {
         Map<SubCategory, Iterable<Product>> result = new HashMap<>();
         Page<SubCategory> subCategoryPage;

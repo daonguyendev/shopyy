@@ -1,5 +1,6 @@
 package com.codegym.shopyy.controller.api;
 
+import com.codegym.shopyy.constant.PageConstant;
 import com.codegym.shopyy.dto.request.ProductRequestDto;
 import com.codegym.shopyy.dto.response.ResponsePage;
 import com.codegym.shopyy.model.Product;
@@ -29,18 +30,15 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class ProductController {
 
-    private static final int DEFAULT_PAGE = 0;
-    private static final int PAGE_SIZE = 3;
-
     @Autowired
     private ProductServiceImpl productService;
 
     @GetMapping
     public ResponseEntity<Page<Product>> homeProduct(@RequestParam(defaultValue = "", required = false) String search,
-                                                     @PageableDefault(page = DEFAULT_PAGE, size = PAGE_SIZE) Pageable pageable) {
+                                                     @PageableDefault(page = PageConstant.DEFAULT_PAGE, size = PageConstant.PAGE_SIZE) Pageable pageable) {
 
         Page<Product> productPage;
-        if (search.isEmpty()) {
+        if (!search.isEmpty()) {
             productPage = productService.findByName(pageable, search);
         } else {
             productPage = productService.findAll(pageable);
@@ -66,30 +64,17 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        Product product = productOptional.get();
 
-        if (productRequestDto.getName() != null) {
+
+        Product product = productOptional.get();
+        if (Optional.ofNullable(product).isPresent()) {
             product.setName(productRequestDto.getName());
-        }
-        if (productRequestDto.getPrice() != null) {
             product.setPrice(productRequestDto.getPrice());
-        }
-        if (productRequestDto.getDescription() != null) {
             product.setDescription(productRequestDto.getDescription());
-        }
-        if (productRequestDto.getQuantity() != null) {
             product.setQuantity(productRequestDto.getQuantity());
-        }
-        if (productRequestDto.getAvatar() != null) {
             product.setAvatar(productRequestDto.getAvatar());
-        }
-        if (productRequestDto.getSubCategory() != null) {
             product.setSubCategory(productRequestDto.getSubCategory());
-        }
-        if (productRequestDto.getColors() != null) {
             product.setColors(productRequestDto.getColors());
-        }
-        if (productRequestDto.getSizes() != null) {
             product.setSizes(productRequestDto.getSizes());
         }
 

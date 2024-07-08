@@ -1,5 +1,6 @@
 package com.codegym.shopyy.controller.api;
 
+import com.codegym.shopyy.constant.PageConstant;
 import com.codegym.shopyy.dto.request.CategoryRequestDto;
 import com.codegym.shopyy.dto.response.ResponsePage;
 import com.codegym.shopyy.model.Category;
@@ -34,15 +35,15 @@ public class CategoryController {
     @Autowired
     private CategoryServiceImpl categoryService;
 
-    private static final int DEFAULT_PAGE = 0;
-    private static final int PAGE_SIZE = 3;
+
+
 
     @GetMapping
     public ResponseEntity<Page<Category>> homeProduct(@RequestParam(defaultValue = "", required = false) String search,
-                                                      @PageableDefault(page = DEFAULT_PAGE, size = PAGE_SIZE) Pageable pageable) {
+                                                      @PageableDefault(page = PageConstant.DEFAULT_PAGE, size = PageConstant.PAGE_SIZE) Pageable pageable) {
 
         Page<Category> categoryPage;
-        if (search.isEmpty()) {
+        if (!search.isEmpty()) {
             categoryPage = categoryService.findByName(pageable, search);
         } else {
             categoryPage = (Page<Category>) categoryService.findAll(pageable);
@@ -95,7 +96,7 @@ public class CategoryController {
 
 
     @PostMapping("/search")
-    public ResponseEntity<Map<Category, Iterable<SubCategory>>> searchCategory(@PageableDefault(page = DEFAULT_PAGE) Pageable pageable,
+    public ResponseEntity<Map<Category, Iterable<SubCategory>>> searchCategory(@PageableDefault(page = PageConstant.DEFAULT_PAGE) Pageable pageable,
                                                                                @RequestParam("search") Optional<String> search) {
         Map<Category, Iterable<SubCategory>> result = new HashMap<>();
         Page<Category> categoryPage;
