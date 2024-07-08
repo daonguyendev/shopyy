@@ -35,6 +35,7 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //todo: the commented-out code sections are intended to establish relationships with other entities in the future
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "product_id", nullable = false)
 //    @JsonIgnore
