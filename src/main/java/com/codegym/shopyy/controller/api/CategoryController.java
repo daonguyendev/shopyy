@@ -34,12 +34,15 @@ public class CategoryController {
     @Autowired
     private CategoryServiceImpl categoryService;
 
+    private static final int DEFAULT_PAGE = 0;
+    private static final int PAGE_SIZE = 3;
+
     @GetMapping
     public ResponseEntity<Page<Category>> homeProduct(@RequestParam(defaultValue = "", required = false) String search,
-                                                      @PageableDefault(page = 0, size = 3) Pageable pageable) {
+                                                      @PageableDefault(page = DEFAULT_PAGE, size = PAGE_SIZE) Pageable pageable) {
 
         Page<Category> categoryPage;
-        if (!search.isEmpty()) {
+        if (search.isEmpty()) {
             categoryPage = categoryService.findByName(pageable, search);
         } else {
             categoryPage = (Page<Category>) categoryService.findAll(pageable);
@@ -53,28 +56,27 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponsePage> save(@RequestBody CategoryRequestDto categoryRequestDto) {
+    public ResponseEntity<ResponsePage> addCategory(@RequestBody CategoryRequestDto categoryRequestDto) {
         ResponsePage responsePage = categoryService.save(categoryRequestDto);
         return new ResponseEntity<>(responsePage, responsePage.getStatus());
     }
 
-    @PutMapping("/{id}")
+    @PutMapping()
     public ResponseEntity<ResponsePage> updateCategory(@RequestBody CategoryRequestDto categoryRequestDto) {
         Optional<Category> categoryOptional = categoryService.findById(categoryRequestDto.getId());
 
-        if (categoryOptional.isEmpty()) {
+        if (categoryOptional.isPresent()) {
+            Category category = categoryOptional.get();
+            category.setName(categoryRequestDto.getName());
+            ResponsePage responsePage = categoryService.save(categoryRequestDto);
+            return new ResponseEntity<>(responsePage, responsePage.getStatus());
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
-        Category category = categoryOptional.get();
-        category.setName(categoryRequestDto.getName());
-
-        ResponsePage responsePage = categoryService.save(categoryRequestDto);
-        return new ResponseEntity<>(responsePage, responsePage.getStatus());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Category>> findByIdCategory(@PathVariable Long id) {
+    public ResponseEntity<Optional<Category>> findByCategoryId(@PathVariable Long id) {
         Optional<Category> categoryOptional = categoryService.findById(id);
         return new ResponseEntity<>(categoryOptional, HttpStatus.OK);
     }
@@ -93,7 +95,7 @@ public class CategoryController {
 
 
     @PostMapping("/search")
-    public ResponseEntity<Map<Category, Iterable<SubCategory>>> searchCategory(@PageableDefault(page = 0) Pageable pageable,
+    public ResponseEntity<Map<Category, Iterable<SubCategory>>> searchCategory(@PageableDefault(page = DEFAULT_PAGE) Pageable pageable,
                                                                                @RequestParam("search") Optional<String> search) {
         Map<Category, Iterable<SubCategory>> result = new HashMap<>();
         Page<Category> categoryPage;

@@ -39,7 +39,7 @@ public class Product {
     private String description;
 
     @Column(nullable = false)
-    private int quantity;
+    private Integer quantity;
 
     @Column(nullable = false)
     private String avatar;

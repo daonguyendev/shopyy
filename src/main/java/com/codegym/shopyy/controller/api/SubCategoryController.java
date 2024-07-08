@@ -33,11 +33,14 @@ public class SubCategoryController {
     @Autowired
     private SubCategoryServiceImpl subCategoryService;
 
+    private static final int DEFAULT_PAGE = 0;
+    private static final int PAGE_SIZE = 3;
+
     @GetMapping
     public ResponseEntity<Page<SubCategory>> homeSubCategory(@RequestParam(defaultValue = "", required = false) String search,
-                                                             @PageableDefault(page = 0, size = 3)Pageable pageable) {
+                                                             @PageableDefault(page = DEFAULT_PAGE)Pageable pageable) {
         Page<SubCategory> subCategoryPage;
-        if (!search.isEmpty()) {
+        if (search.isEmpty()) {
             subCategoryPage = subCategoryService.findByName(pageable, search);
         } else {
             subCategoryPage = subCategoryService.findAll(pageable);
@@ -50,7 +53,7 @@ public class SubCategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponsePage> saveSub(@RequestBody SubCategoryRequestDto subCategoryRequestDto) {
+    public ResponseEntity<ResponsePage> addSub(@RequestBody SubCategoryRequestDto subCategoryRequestDto) {
         ResponsePage responsePage = subCategoryService.save(subCategoryRequestDto);
         return new ResponseEntity<>(responsePage, responsePage.getStatus());
     }
@@ -87,7 +90,7 @@ public class SubCategoryController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<Map<SubCategory, Iterable<Product>>> searchSubCategory(@PageableDefault(page = 0) Pageable pageable,
+    public ResponseEntity<Map<SubCategory, Iterable<Product>>> searchSubCategory(@PageableDefault(page = DEFAULT_PAGE) Pageable pageable,
                                                                                  @RequestParam("search") Optional<String> search) {
         Map<SubCategory, Iterable<Product>> result = new HashMap<>();
         Page<SubCategory> subCategoryPage;

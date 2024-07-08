@@ -26,7 +26,7 @@ public class ProductRequestDto {
 
     private String description;
 
-    private int quantity;
+    private Integer quantity;
 
     private String avatar;
 

@@ -1,4 +1,4 @@
 package com.codegym.shopyy.controller;
 
-public class ProductView {
+public class ProductHomeController {
 }

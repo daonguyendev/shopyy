@@ -29,15 +29,18 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class ProductController {
 
+    private static final int DEFAULT_PAGE = 0;
+    private static final int PAGE_SIZE = 3;
+
     @Autowired
     private ProductServiceImpl productService;
 
     @GetMapping
     public ResponseEntity<Page<Product>> homeProduct(@RequestParam(defaultValue = "", required = false) String search,
-                                                     @PageableDefault(page = 0, size = 3) Pageable pageable) {
+                                                     @PageableDefault(page = DEFAULT_PAGE, size = PAGE_SIZE) Pageable pageable) {
 
         Page<Product> productPage;
-        if (!search.isEmpty()) {
+        if (search.isEmpty()) {
             productPage = productService.findByName(pageable, search);
         } else {
             productPage = productService.findAll(pageable);
@@ -51,7 +54,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponsePage> save(@RequestBody ProductRequestDto productRequestDto) {
+    public ResponseEntity<ResponsePage> addProduct(@RequestBody ProductRequestDto productRequestDto) {
         ResponsePage responsePage = productService.save(productRequestDto);
         return new ResponseEntity<>(responsePage, responsePage.getStatus());
     }
@@ -64,14 +67,31 @@ public class ProductController {
         }
 
         Product product = productOptional.get();
-        product.setName(productRequestDto.getName());
-        product.setPrice(productRequestDto.getPrice());
-        product.setDescription(productRequestDto.getDescription());
-        product.setQuantity(productRequestDto.getQuantity());
-        product.setAvatar(productRequestDto.getAvatar());
-        product.setSubCategory(productRequestDto.getSubCategory());
-        product.setColors(productRequestDto.getColors());
-        product.setSizes(productRequestDto.getSizes());
+
+        if (productRequestDto.getName() != null) {
+            product.setName(productRequestDto.getName());
+        }
+        if (productRequestDto.getPrice() != null) {
+            product.setPrice(productRequestDto.getPrice());
+        }
+        if (productRequestDto.getDescription() != null) {
+            product.setDescription(productRequestDto.getDescription());
+        }
+        if (productRequestDto.getQuantity() != null) {
+            product.setQuantity(productRequestDto.getQuantity());
+        }
+        if (productRequestDto.getAvatar() != null) {
+            product.setAvatar(productRequestDto.getAvatar());
+        }
+        if (productRequestDto.getSubCategory() != null) {
+            product.setSubCategory(productRequestDto.getSubCategory());
+        }
+        if (productRequestDto.getColors() != null) {
+            product.setColors(productRequestDto.getColors());
+        }
+        if (productRequestDto.getSizes() != null) {
+            product.setSizes(productRequestDto.getSizes());
+        }
 
         ResponsePage responsePage = productService.save(productRequestDto);
         return new ResponseEntity<>(responsePage, responsePage.getStatus());

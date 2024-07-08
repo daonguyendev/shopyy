@@ -35,7 +35,7 @@ public class ColorController {
     }
 
     @PostMapping
-    public ResponseEntity<Color> saveColor(@RequestBody Color color) {
+    public ResponseEntity<Color> addColor(@RequestBody Color color) {
         return new ResponseEntity<>(colorService.save(color), HttpStatus.CREATED);
     }
 
