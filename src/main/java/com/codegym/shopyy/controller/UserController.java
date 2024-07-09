@@ -1,6 +1,6 @@
 package com.codegym.shopyy.controller;
 
-import com.codegym.shopyy.model.dto.UserDto;
+import com.codegym.shopyy.dto.UserDto;
 import com.codegym.shopyy.payload.request.SearchRequest;
 import com.codegym.shopyy.service.ISecurityService;
 import com.codegym.shopyy.service.IUserService;

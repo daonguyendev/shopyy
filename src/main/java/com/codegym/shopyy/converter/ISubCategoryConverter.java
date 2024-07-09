@@ -1,7 +1,7 @@
 package com.codegym.shopyy.converter;
 
 import com.codegym.shopyy.dto.request.SubCategoryRequestDto;
-import com.codegym.shopyy.model.SubCategory;
+import com.codegym.shopyy.entities.SubCategory;
 
 public interface ISubCategoryConverter {
 

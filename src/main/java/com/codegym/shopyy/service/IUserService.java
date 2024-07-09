@@ -1,6 +1,6 @@
 package com.codegym.shopyy.service;
 
-import com.codegym.shopyy.model.dto.UserDto;
+import com.codegym.shopyy.dto.UserDto;
 
 import java.util.List;
 import java.util.Optional;
