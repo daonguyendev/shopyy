@@ -2,7 +2,7 @@ package com.codegym.shopyy.service.impl;
 
 import com.codegym.shopyy.dto.UserDto;
 import com.codegym.shopyy.entities.User;
-import com.codegym.shopyy.repository.UserRepository;
+import com.codegym.shopyy.repository.IUserRepository;
 import com.codegym.shopyy.service.IUserService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -17,10 +17,10 @@ import java.util.stream.StreamSupport;
 @Service
 @Transactional
 public class UserServiceImpl implements IUserService {
-    private final UserRepository userRepository;
+    private final IUserRepository userRepository;
     private final ModelMapper modelMapper;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+    public UserServiceImpl(IUserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
     }

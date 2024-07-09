@@ -1,7 +1,8 @@
 package com.codegym.shopyy.security;
 
+import com.codegym.shopyy.entities.Role;
 import com.codegym.shopyy.entities.User;
-import com.codegym.shopyy.repository.UserRepository;
+import com.codegym.shopyy.repository.IUserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,7 +20,7 @@ import java.util.List;
 public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private IUserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -29,11 +30,11 @@ public class JwtUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User " + username + "was not found in database!");
         }
 
-        List<String> roles = userRepository.findRolesByUsername(username);
+        List<Role> roles = userRepository.findRolesByUsername(username);
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        for (String role: roles) {
-            GrantedAuthority authority = new SimpleGrantedAuthority(role);
+        for (Role role: roles) {
+            GrantedAuthority authority = new SimpleGrantedAuthority(role.getName());
             grantedAuthorities.add(authority);
         }
 
