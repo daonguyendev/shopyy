@@ -2,7 +2,7 @@ package com.codegym.shopyy.service.impl;
 
 import com.codegym.shopyy.model.dto.RoleDto;
 import com.codegym.shopyy.model.entity.Role;
-import com.codegym.shopyy.repository.RoleRepository;
+import com.codegym.shopyy.repository.IRoleRepository;
 import com.codegym.shopyy.service.IRoleService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -17,17 +17,17 @@ import java.util.stream.StreamSupport;
 @Transactional
 @ComponentScan(basePackageClasses = ModelMapper.class)
 public class RoleServiceImpl implements IRoleService {
-    private final RoleRepository roleRepository;
+    private final IRoleRepository IRoleRepository;
 
     private final ModelMapper modelMapper;
 
-    public RoleServiceImpl(RoleRepository roleRepository, ModelMapper modelMapper) {
-        this.roleRepository = roleRepository;
+    public RoleServiceImpl(IRoleRepository IRoleRepository, ModelMapper modelMapper) {
+        this.IRoleRepository = IRoleRepository;
         this.modelMapper = modelMapper;
     }
     @Override
     public Iterable<RoleDto> findAll() {
-        Iterable<Role> entities = roleRepository.findAll();
+        Iterable<Role> entities = IRoleRepository.findAll();
         return StreamSupport.stream(entities.spliterator(), true)
                 .map(entity -> modelMapper.map(entity, RoleDto.class))
                 .collect(Collectors.toList());
@@ -35,17 +35,17 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public Optional<RoleDto> findById(Long id) {
-        Role entity = roleRepository.findById(id).orElse(null);
+        Role entity = IRoleRepository.findById(id).orElse(null);
         return Optional.ofNullable(modelMapper.map(entity, RoleDto.class));    }
 
     @Override
     public void save(RoleDto roleDto) {
         Role role = modelMapper.map(roleDto, Role.class);
-        roleRepository.save(role);
+        IRoleRepository.save(role);
     }
 
     @Override
     public void remove(Long id) {
-        roleRepository.deleteById(id);
+        IRoleRepository.deleteById(id);
     }
 }
