@@ -53,6 +53,16 @@ public class UserController {
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody UserDto userDto) {
+//        if (userService.getUserByEmail(userDto.getEmail())!= null) {
+//            return new ResponseEntity<>("Email đã tồn tại!", HttpStatus.CONFLICT);
+//        }
+        userService.save(userDto);
+        return new ResponseEntity<>("Tạo tài khoản thành công!", HttpStatus.CREATED);
+    }
+
+
     @PostMapping("/search")
     public ResponseEntity<?> search(@RequestBody SearchRequest searchRequest,
                                     @RequestHeader("Authorization") final String authToken) {
