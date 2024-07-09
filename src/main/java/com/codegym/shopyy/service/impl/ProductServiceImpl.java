@@ -11,7 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +32,8 @@ public class ProductServiceImpl implements IProductService {
     private IProductRepository productRepository;
 
     @Override
-    public Page<Product> findByName(Pageable pageable, String name) {
-        return productRepository.findByName(name, pageable);
+    public Page<Product> findByName(Pageable pageable, String keyword) {
+        return productRepository.findByName(keyword, pageable);
     }
 
     @Override
@@ -86,5 +88,13 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public void deleteById(Long id) {
         productRepository.deleteById(id);
+    }
+
+    public Page<Product> findAllSortedBySubCategory(Pageable pageable) {
+        return productRepository.findAll(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("subCategory.name")));
+    }
+
+    public Page<Product> findBySubCategoryName(String subCategoryName, Pageable pageable) {
+        return productRepository.findBySubCategoryName(subCategoryName, pageable);
     }
 }

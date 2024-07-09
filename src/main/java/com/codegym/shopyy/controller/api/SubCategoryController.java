@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/subCategory")
+@CrossOrigin(origins = "*")
 public class SubCategoryController {
 
     @Autowired
@@ -36,10 +38,9 @@ public class SubCategoryController {
 
 
     @GetMapping
-    public ResponseEntity<Page<SubCategory>> homeSubCategory(@RequestParam(defaultValue = "", required = false) String search,
-                                                             @PageableDefault(page = PageConstant.DEFAULT_PAGE)Pageable pageable) {
+    public ResponseEntity<Page<SubCategory>> homeSubCategory(@RequestParam(defaultValue = "", required = false) String search, Pageable pageable) {
         Page<SubCategory> subCategoryPage;
-        if (search.isEmpty()) {
+        if (!search.isEmpty()) {
             subCategoryPage = subCategoryService.findByName(pageable, search);
         } else {
             subCategoryPage = subCategoryService.findAll(pageable);
