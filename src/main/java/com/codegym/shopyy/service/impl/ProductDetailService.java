@@ -1,10 +1,9 @@
-package com.codegym.shopyy.service;
+package com.codegym.shopyy.service.impl;
 
 import com.codegym.shopyy.model.ProductDetail;
 import com.codegym.shopyy.repository.IProductDetailRepository;
+import com.codegym.shopyy.service.IProductDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -34,16 +33,6 @@ public class ProductDetailService implements IProductDetailService {
     @Override
     public void remove(Long id) {
         productDetailRepository.deleteById(id);
-    }
-
-    @Override
-    public Iterable<ProductDetail> findAllByOrderByPrice() {
-        return productDetailRepository.findAllByOrderByPrice();
-    }
-
-    @Override
-    public Iterable<ProductDetail> findAllByPriceBetween(int from, int to) {
-        return productDetailRepository.findAllByPriceBetween(from, to);
     }
 
 }

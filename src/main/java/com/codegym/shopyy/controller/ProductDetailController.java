@@ -5,14 +5,12 @@ import com.codegym.shopyy.service.IProductDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 
-@Controller
+@RestController
 @CrossOrigin("*")
-@RequestMapping("/productDetail")
+@RequestMapping("/api/productDetail")
 public class ProductDetailController {
     @Autowired
     IProductDetailService productDetailService;
@@ -22,45 +20,29 @@ public class ProductDetailController {
         return new ResponseEntity<>(productDetailService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity findById(@PathVariable Long id) {
-        return new ResponseEntity(productDetailService.findById(id), HttpStatus.OK);
-    }
 
-    @GetMapping("/order-by-price")
-    public ResponseEntity<Iterable<ProductDetail>> findAllByOrderByPrice() {
-        return new ResponseEntity<>(productDetailService.findAllByOrderByPrice(), HttpStatus.OK);
-    }
-
-    @GetMapping("/price-between")
-    public ResponseEntity<Iterable<ProductDetail>> findAllByPriceBetween(@RequestParam int from, @RequestParam int to) {
-        return new ResponseEntity<>(productDetailService.findAllByPriceBetween(from, to), HttpStatus.OK);
-    }
-
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity add(@RequestBody ProductDetail productDetail) {
         productDetailService.save(productDetail);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDetail> findById(@PathVariable Long id) {
+        return new ResponseEntity<>(productDetailService.findById(id).get(), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable Long id, @RequestBody ProductDetail productDetail) {
-        Optional<ProductDetail> oldProduct = productDetailService.findById(id);
-        if (!oldProduct.isPresent()) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<ProductDetail> edit(@RequestBody ProductDetail productDetail, @PathVariable Long id) {
         productDetail.setId(id);
         productDetailService.save(productDetail);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(productDetailService.findById(id).get(), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable Long id) {
-        Optional<ProductDetail> oldProduct = productDetailService.findById(id);
-        if (!oldProduct.isPresent()) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         productDetailService.remove(id);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }
