@@ -10,15 +10,15 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
 
-    @Query(nativeQuery = true,
+    @Query(nativeQuery = false,
             value = "select u " +
-                    "from user u " +
-                    "where u.fullname like :fullname;")
+                    "from User u " +
+                    "where u.fullName like :fullname")
     List<User> findByFullName(@Param("fullname") String fullname);
 
-    @Query(nativeQuery = true,
-            value = "SELECT r.name FROM role r " +
-                    "INNER JOIN user u ON r.id = u.role_id " +
+    @Query(nativeQuery = false,
+            value = "SELECT r.name FROM Role r " +
+                    "INNER JOIN User u ON r.id = u.role.id " +
                     "WHERE u.username = :username")
     List<String> findRolesByUsername(@Param("username") String username);
 }
