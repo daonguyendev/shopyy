@@ -32,8 +32,8 @@ public class UserServiceImpl implements IUserService {
                 .collect(Collectors.toList());    }
 
     @Override
-    public List<UserDto> getUsersByFullName(String fullName) {
-        String likeFullName = "%" + fullName + "%";
+    public List<UserDto> getUsersByFullName(String fullname) {
+        String likeFullName = "%" + fullname + "%";
         List<User> users = userRepository.findByFullName(likeFullName);
         return users.stream()
                 .map(user -> modelMapper.map(user, UserDto.class))

@@ -15,6 +15,7 @@ public class SecurityServiceImpl implements ISecurityService {
     public SecurityServiceImpl(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
     }
+
     @Override
     public boolean isAuthenticated() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -22,7 +23,8 @@ public class SecurityServiceImpl implements ISecurityService {
                 || AnonymousAuthenticationToken.class.isAssignableFrom(authentication.getClass())) {
             return false;
         }
-        return authentication.isAuthenticated();    }
+        return authentication.isAuthenticated();
+    }
 
     @Override
     public boolean isValidToken(String authToken) {
@@ -30,5 +32,6 @@ public class SecurityServiceImpl implements ISecurityService {
         if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(authToken)) {
             return true;
         }
-        return false;    }
+        return false;
+    }
 }

@@ -20,7 +20,7 @@ import java.util.List;
 
 @CrossOrigin(value = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 public class UserController {
     @Autowired
     private IUserService userService;
@@ -59,13 +59,13 @@ public class UserController {
         if (!securityService.isAuthenticated() && !securityService.isValidToken(authToken)) {
             return new ResponseEntity<String>("Responding with unauthorized error. Message - {}", HttpStatus.UNAUTHORIZED);
         }
-        List<UserDto> userDtos = null;
-        if (searchRequest.getKeyword() != null && !searchRequest.getKeyword().isEmpty()) {
-            userDtos = userService.getUsersByFullName(searchRequest.getKeyword());
-            if (userDtos.isEmpty()) {
+        List<UserDto> userDto = null;
+        if (searchRequest.getKeyword() != null || !searchRequest.getKeyword().isEmpty()) {
+            userDto = userService.getUsersByFullName(searchRequest.getKeyword());
+            if (userDto.isEmpty()) {
                 return new ResponseEntity<List<UserDto>>(HttpStatus.NO_CONTENT);
             }
         }
-        return new ResponseEntity<>(userDtos, HttpStatus.OK);
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 }

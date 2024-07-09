@@ -16,7 +16,7 @@ import java.util.List;
 
 @CrossOrigin(value = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/role")
+@RequestMapping("/api/roles")
 public class RoleController {
     @Autowired
     private IRoleService roleService;
