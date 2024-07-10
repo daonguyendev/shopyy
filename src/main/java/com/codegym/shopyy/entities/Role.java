@@ -1,14 +1,13 @@
 package com.codegym.shopyy.entities;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Set;
 
 @Entity
 @Getter
@@ -22,7 +21,4 @@ public class Role {
 
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    @JsonIgnore
-    private Set<User> users;
 }

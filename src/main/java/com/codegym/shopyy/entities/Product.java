@@ -41,7 +41,7 @@ public class Product {
     @Column(nullable = false)
     private Integer quantity;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String avatar;
 
     @ManyToOne

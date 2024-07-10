@@ -1,6 +1,7 @@
 package com.codegym.shopyy.service;
 
 import com.codegym.shopyy.dto.UserDto;
+import com.codegym.shopyy.entities.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,4 +14,5 @@ public interface IUserService {
     Optional<UserDto> findById(Long id);
     void save(UserDto userDto);
     void remove(Long id);
+    User getCurrentUser();
 }

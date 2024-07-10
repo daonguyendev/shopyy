@@ -6,6 +6,8 @@ import com.codegym.shopyy.repository.IUserRepository;
 import com.codegym.shopyy.service.IUserService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -69,5 +71,16 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void remove(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new SecurityException("You are not authenticated");
+        }
+
+        String username = authentication.getName();
+        return userRepository.findByUsername(username);
     }
 }
