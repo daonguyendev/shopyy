@@ -2,7 +2,7 @@ package com.codegym.shopyy.converter.impl;
 
 import com.codegym.shopyy.converter.ISubCategoryConverter;
 import com.codegym.shopyy.dto.request.SubCategoryRequestDto;
-import com.codegym.shopyy.model.SubCategory;
+import com.codegym.shopyy.entities.SubCategory;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

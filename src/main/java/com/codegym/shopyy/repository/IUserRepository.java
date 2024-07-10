@@ -1,7 +1,7 @@
 package com.codegym.shopyy.repository;
 
-import com.codegym.shopyy.model.entity.Role;
-import com.codegym.shopyy.model.entity.User;
+import com.codegym.shopyy.entities.Role;
+import com.codegym.shopyy.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

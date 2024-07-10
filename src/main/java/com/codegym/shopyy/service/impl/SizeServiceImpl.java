@@ -1,6 +1,6 @@
 package com.codegym.shopyy.service.impl;
 
-import com.codegym.shopyy.model.Size;
+import com.codegym.shopyy.entities.Size;
 import com.codegym.shopyy.repository.ISizeRepository;
 import com.codegym.shopyy.service.ISizeService;
 import org.springframework.beans.factory.annotation.Autowired;

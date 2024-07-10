@@ -1,8 +1,8 @@
 package com.codegym.shopyy.dto.request;
 
-import com.codegym.shopyy.model.Color;
-import com.codegym.shopyy.model.Size;
-import com.codegym.shopyy.model.SubCategory;
+import com.codegym.shopyy.entities.Color;
+import com.codegym.shopyy.entities.Size;
+import com.codegym.shopyy.entities.SubCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

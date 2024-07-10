@@ -1,7 +1,6 @@
 package com.codegym.shopyy.repository;
 
-import com.codegym.shopyy.model.Category;
-import com.codegym.shopyy.model.SubCategory;
+import com.codegym.shopyy.entities.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;

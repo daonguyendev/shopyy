@@ -1,6 +1,6 @@
 package com.codegym.shopyy.formatter;
 
-import com.codegym.shopyy.model.dto.RoleDto;
+import com.codegym.shopyy.dto.RoleDto;
 import com.codegym.shopyy.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;

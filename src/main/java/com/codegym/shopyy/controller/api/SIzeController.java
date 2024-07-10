@@ -1,6 +1,6 @@
 package com.codegym.shopyy.controller.api;
 
-import com.codegym.shopyy.model.Size;
+import com.codegym.shopyy.entities.Size;
 import com.codegym.shopyy.service.impl.SizeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
