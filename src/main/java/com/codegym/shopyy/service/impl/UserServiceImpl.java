@@ -1,11 +1,19 @@
 package com.codegym.shopyy.service.impl;
 
+<<<<<<< HEAD
 import com.codegym.shopyy.dto.request.UserDto;
 import com.codegym.shopyy.model.User;
 import com.codegym.shopyy.repository.UserRepository;
+=======
+import com.codegym.shopyy.dto.UserDto;
+import com.codegym.shopyy.entities.User;
+import com.codegym.shopyy.repository.IUserRepository;
+>>>>>>> 7924e1fc9aad65f352ed912209beac4f6ffd9d96
 import com.codegym.shopyy.service.IUserService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +25,10 @@ import java.util.stream.StreamSupport;
 @Service
 @Transactional
 public class UserServiceImpl implements IUserService {
-    private final UserRepository userRepository;
+    private final IUserRepository userRepository;
     private final ModelMapper modelMapper;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+    public UserServiceImpl(IUserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
     }
@@ -69,5 +77,16 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void remove(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new SecurityException("You are not authenticated");
+        }
+
+        String username = authentication.getName();
+        return userRepository.findByUsername(username);
     }
 }

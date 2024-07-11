@@ -1,6 +1,11 @@
 package com.codegym.shopyy.service;
 
+<<<<<<< HEAD
 import com.codegym.shopyy.dto.request.UserDto;
+=======
+import com.codegym.shopyy.dto.UserDto;
+import com.codegym.shopyy.entities.User;
+>>>>>>> 7924e1fc9aad65f352ed912209beac4f6ffd9d96
 
 import java.util.List;
 import java.util.Optional;
@@ -13,4 +18,5 @@ public interface IUserService {
     Optional<UserDto> findById(Long id);
     void save(UserDto userDto);
     void remove(Long id);
+    User getCurrentUser();
 }

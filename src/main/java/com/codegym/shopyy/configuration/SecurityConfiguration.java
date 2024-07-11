@@ -1,6 +1,6 @@
 package com.codegym.shopyy.configuration;
 
-import com.codegym.shopyy.repository.UserRepository;
+import com.codegym.shopyy.repository.IUserRepository;
 import com.codegym.shopyy.security.JwtAuthEntryPoint;
 import com.codegym.shopyy.security.JwtAuthFilter;
 import com.codegym.shopyy.security.JwtUserDetailsService;
@@ -24,7 +24,6 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 
 @EnableAutoConfiguration
@@ -32,7 +31,7 @@ import org.springframework.web.filter.CorsFilter;
 @ComponentScan(basePackageClasses = {
         JwtUserDetailsService.class,
         JwtAuthEntryPoint.class,
-        UserRepository.class
+        IUserRepository.class
 })
 @Configuration
 public class SecurityConfiguration {

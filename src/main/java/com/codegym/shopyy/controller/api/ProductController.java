@@ -3,14 +3,12 @@ package com.codegym.shopyy.controller.api;
 import com.codegym.shopyy.constant.PageConstant;
 import com.codegym.shopyy.dto.request.ProductRequestDto;
 import com.codegym.shopyy.dto.response.ResponsePage;
-import com.codegym.shopyy.model.Product;
+import com.codegym.shopyy.entities.Product;
 import com.codegym.shopyy.service.impl.ProductServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

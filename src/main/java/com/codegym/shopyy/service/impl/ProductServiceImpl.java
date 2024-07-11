@@ -3,7 +3,11 @@ package com.codegym.shopyy.service.impl;
 import com.codegym.shopyy.converter.IProductConverter;
 import com.codegym.shopyy.dto.request.ProductRequestDto;
 import com.codegym.shopyy.dto.response.ResponsePage;
+<<<<<<< HEAD
 import com.codegym.shopyy.model.Product;
+=======
+import com.codegym.shopyy.entities.Product;
+>>>>>>> 7924e1fc9aad65f352ed912209beac4f6ffd9d96
 import com.codegym.shopyy.repository.IProductRepository;
 import com.codegym.shopyy.service.IProductService;
 import org.slf4j.Logger;

@@ -1,8 +1,14 @@
 package com.codegym.shopyy.dto.request;
 
+<<<<<<< HEAD
 import com.codegym.shopyy.model.Color;
 import com.codegym.shopyy.model.Size;
 
+=======
+import com.codegym.shopyy.entities.Color;
+import com.codegym.shopyy.entities.Size;
+import com.codegym.shopyy.entities.SubCategory;
+>>>>>>> 7924e1fc9aad65f352ed912209beac4f6ffd9d96
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
