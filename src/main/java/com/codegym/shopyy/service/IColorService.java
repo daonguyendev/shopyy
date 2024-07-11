@@ -1,6 +1,6 @@
 package com.codegym.shopyy.service;
 
-import com.codegym.shopyy.model.Color;
+import com.codegym.shopyy.entities.Color;
 import java.util.Optional;
 
 public interface IColorService {

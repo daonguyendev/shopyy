@@ -1,6 +1,6 @@
 package com.codegym.shopyy.controller.api;
 
-import com.codegym.shopyy.model.Color;
+import com.codegym.shopyy.entities.Color;
 import com.codegym.shopyy.service.impl.ColorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

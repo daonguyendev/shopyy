@@ -3,8 +3,8 @@ package com.codegym.shopyy.controller.api;
 import com.codegym.shopyy.constant.PageConstant;
 import com.codegym.shopyy.dto.request.CategoryRequestDto;
 import com.codegym.shopyy.dto.response.ResponsePage;
-import com.codegym.shopyy.model.Category;
-import com.codegym.shopyy.model.SubCategory;
+import com.codegym.shopyy.entities.Category;
+import com.codegym.shopyy.entities.SubCategory;
 import com.codegym.shopyy.service.impl.CategoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -84,16 +84,14 @@ public class CategoryController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
-        Optional<Category> categoryOptional = categoryService.findById(id);
-        if (categoryOptional.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        Optional<Category> existingCategory = categoryService.findById(id);
+        if (existingCategory.isPresent()) {
+            categoryService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-
-        categoryService.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 
     @PostMapping("/search")
     public ResponseEntity<Map<Category, Iterable<SubCategory>>> searchCategory(@PageableDefault(page = PageConstant.DEFAULT_PAGE) Pageable pageable,

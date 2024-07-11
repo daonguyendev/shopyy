@@ -2,7 +2,7 @@ package com.codegym.shopyy.converter.impl;
 
 import com.codegym.shopyy.converter.IProductConverter;
 import com.codegym.shopyy.dto.request.ProductRequestDto;
-import com.codegym.shopyy.model.Product;
+import com.codegym.shopyy.entities.Product;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

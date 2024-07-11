@@ -2,7 +2,7 @@ package com.codegym.shopyy.service;
 
 import com.codegym.shopyy.dto.request.ProductRequestDto;
 import com.codegym.shopyy.dto.response.ResponsePage;
-import com.codegym.shopyy.model.Product;
+import com.codegym.shopyy.entities.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -27,8 +27,7 @@ public interface IProductService {
 
     void deleteById(Long id);
 
-    Page<Product> findAllSortedBySubCategory(Pageable pageable);
+    Page<Product> searchProducts(String keyword, Pageable pageable);
 
-    Page<Product> findBySubCategoryName(String subCategory, Pageable pageable);
 
 }

@@ -1,7 +1,7 @@
 package com.codegym.shopyy.security;
 
-import com.codegym.shopyy.model.entity.Role;
-import com.codegym.shopyy.model.entity.User;
+import com.codegym.shopyy.entities.Role;
+import com.codegym.shopyy.entities.User;
 import com.codegym.shopyy.repository.IUserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -30,7 +31,8 @@ public class JwtUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User " + username + "was not found in database!");
         }
 
-        List<Role> roles = userRepository.findRolesByUsername(username);
+//        List<Role> roles = userRepository.findRolesByUsername(username);
+        Set<Role> roles = user.getRoles();
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         for (Role role: roles) {

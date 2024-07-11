@@ -3,9 +3,8 @@ package com.codegym.shopyy.controller.api;
 import com.codegym.shopyy.constant.PageConstant;
 import com.codegym.shopyy.dto.request.SubCategoryRequestDto;
 import com.codegym.shopyy.dto.response.ResponsePage;
-import com.codegym.shopyy.model.Category;
-import com.codegym.shopyy.model.Product;
-import com.codegym.shopyy.model.SubCategory;
+import com.codegym.shopyy.entities.Product;
+import com.codegym.shopyy.entities.SubCategory;
 import com.codegym.shopyy.service.impl.SubCategoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -68,7 +67,7 @@ public class SubCategoryController {
         SubCategory subCategory =  subCategoryOptional.get();
         if (Optional.ofNullable(subCategory).isPresent()) {
             subCategory.setName(subCategoryRequestDto.getName());
-            subCategory.setCategory(subCategoryRequestDto.getCategory());
+//            subCategory.setCategory(subCategoryRequestDto.getCategory());
         }
 
         ResponsePage responsePage = subCategoryService.save(subCategoryRequestDto);
@@ -82,14 +81,16 @@ public class SubCategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteIdSub(@PathVariable Long id) {
-        Optional<SubCategory> subCategoryOptional =  subCategoryService.findById(id);
-        if (subCategoryOptional.isEmpty()) {
+    public ResponseEntity<Void> deleteSubCategory(@PathVariable Long id) {
+        Optional<SubCategory> existingSubCategory = subCategoryService.findById(id);
+        if (existingSubCategory.isPresent()) {
+            subCategoryService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        subCategoryService.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
+
 
     @PostMapping("/search")
     public ResponseEntity<Map<SubCategory, Iterable<Product>>> searchSubCategory(@PageableDefault(page = PageConstant.DEFAULT_PAGE) Pageable pageable,

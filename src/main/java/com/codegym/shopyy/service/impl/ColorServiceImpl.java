@@ -1,6 +1,6 @@
 package com.codegym.shopyy.service.impl;
 
-import com.codegym.shopyy.model.Color;
+import com.codegym.shopyy.entities.Color;
 import com.codegym.shopyy.repository.IColorRepository;
 import com.codegym.shopyy.service.IColorService;
 import org.springframework.beans.factory.annotation.Autowired;

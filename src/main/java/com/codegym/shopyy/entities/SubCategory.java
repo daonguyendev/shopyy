@@ -1,4 +1,9 @@
+<<<<<<< HEAD:src/main/java/com/codegym/shopyy/model/SubCategory.java
 package com.codegym.shopyy.model;
+=======
+package com.codegym.shopyy.entities;
+
+>>>>>>> e764a25e8b2de829d05d8a11acdadc857fa18c10:src/main/java/com/codegym/shopyy/entities/SubCategory.java
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
