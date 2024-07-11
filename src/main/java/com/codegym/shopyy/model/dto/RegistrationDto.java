@@ -13,8 +13,13 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserDto {
+public class RegistrationDto {
+    private String fullName;
     private String username;
-
+    private String email;
+    private String phoneNumber;
+    private String gender;
+    private Date dob;
+    private String avatar;
     private String password;
 }

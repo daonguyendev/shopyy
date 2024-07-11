@@ -2,19 +2,17 @@ package com.codegym.shopyy.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import java.util.Date;
-
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Builder
-public class UserDto {
-    private String username;
+public class UpdatePasswordRequest {
+    private String currentPassword;
 
-    private String password;
+    private String newPassword;
+
+    private String confirmPassword;
 }

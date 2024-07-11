@@ -1,9 +1,11 @@
 package com.codegym.shopyy.controller;
 
+import com.codegym.shopyy.model.dto.RegistrationDto;
 import com.codegym.shopyy.payload.request.LoginRequest;
 import com.codegym.shopyy.payload.response.ForbiddenResponse;
 import com.codegym.shopyy.payload.response.LoginResponse;
 import com.codegym.shopyy.security.JwtTokenProvider;
+import com.codegym.shopyy.service.ICustomerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +35,9 @@ public class AuthController {
     @Autowired
     JwtTokenProvider tokenProvider;
 
+    @Autowired
+    private ICustomerService customerService;
+
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         try {
@@ -41,12 +46,19 @@ public class AuthController {
                             loginRequest.getUsername(), loginRequest.getPassword()));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
+
             String token = tokenProvider.generateToken(authentication);
             return new ResponseEntity<>(new LoginResponse("Đăng nhập thành công!", token), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(new LoginResponse("Đăng nhập thất bại!", null), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@RequestBody RegistrationDto registrationDto) {
+        customerService.saveCustomer(registrationDto);
+        return ResponseEntity.ok("User registered successfully");
     }
 
     @GetMapping("/access-denied")
