@@ -1,6 +1,5 @@
 package com.codegym.shopyy.repository;
 
-
 import com.codegym.shopyy.entities.Product;
 import com.codegym.shopyy.entities.SubCategory;
 import org.springframework.data.domain.Page;
@@ -31,7 +30,6 @@ public interface IProductRepository extends PagingAndSortingRepository<Product, 
     Product save(Product product);
 
     void deleteById(Long id);
-
 
     @Query("SELECT p FROM Product p WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
                 "OR LOWER(p.description) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(p.subCategory.name) LIKE LOWER(CONCAT('%', :keyword, '%'))")

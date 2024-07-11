@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/main/java/com/codegym/shopyy/model/Size.java
-package com.codegym.shopyy.model;
-=======
 package com.codegym.shopyy.entities;
->>>>>>> e764a25e8b2de829d05d8a11acdadc857fa18c10:src/main/java/com/codegym/shopyy/entities/Size.java
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
@@ -28,7 +24,6 @@ public class Size {
     private Long id;
 
     private String sizeName;
-
 
     @ManyToMany(mappedBy = "sizes")
     @JsonIgnoreProperties("sizes")

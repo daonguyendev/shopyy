@@ -1,6 +1,6 @@
 package com.codegym.shopyy.controller;
 
-import com.codegym.shopyy.model.Comment;
+import com.codegym.shopyy.entities.Comment;
 import com.codegym.shopyy.service.impl.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

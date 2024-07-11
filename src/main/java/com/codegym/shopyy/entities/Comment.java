@@ -1,4 +1,4 @@
-package com.codegym.shopyy.model;
+package com.codegym.shopyy.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -13,7 +13,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 
 @Entity
 @Getter
@@ -33,7 +32,7 @@ public class Comment {
     private String comment;
 
     @ManyToOne
-    @JoinColumn(name = "productDetail_id", nullable = false)
+    @JoinColumn(name = "product_detail_id", nullable = false)
     @JsonIgnoreProperties({"comments"})
     private ProductDetail productDetail;
 }

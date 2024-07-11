@@ -1,6 +1,6 @@
 package com.codegym.shopyy.service.impl;
 
-import com.codegym.shopyy.model.Comment;
+import com.codegym.shopyy.entities.Comment;
 import com.codegym.shopyy.repository.ICommentRepository;
 import com.codegym.shopyy.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +21,8 @@ public class CommentService implements ICommentService {
     }
 
     @Override
-    public List<Comment> getCommentsByProductDetail(Long productDetailId) {
-        return iCommentRepository.findByProductDetailId(productDetailId);
+    public List<Comment> getCommentsByProductDetail(Long productId) {
+        return iCommentRepository.findByProductDetailId(productId);
     }
 
     @Override
