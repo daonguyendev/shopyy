@@ -1,6 +1,6 @@
 package com.codegym.shopyy.security;
 
-import com.codegym.shopyy.model.entity.User;
+import com.codegym.shopyy.model.User;
 import com.codegym.shopyy.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

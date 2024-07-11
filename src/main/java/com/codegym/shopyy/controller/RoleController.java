@@ -1,6 +1,6 @@
 package com.codegym.shopyy.controller;
 
-import com.codegym.shopyy.model.dto.RoleDto;
+import com.codegym.shopyy.dto.request.RoleDto;
 import com.codegym.shopyy.service.IRoleService;
 import com.codegym.shopyy.service.ISecurityService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -20,7 +20,7 @@ public class SubCategoryRequestDto {
 
     private String name;
 
-    private Category category;
+    private Long category;
 
     private List<Product> products;
 }

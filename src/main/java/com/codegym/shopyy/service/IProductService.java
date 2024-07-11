@@ -27,8 +27,7 @@ public interface IProductService {
 
     void deleteById(Long id);
 
-    Page<Product> findAllSortedBySubCategory(Pageable pageable);
+    Page<Product> searchProducts(String keyword, Pageable pageable);
 
-    Page<Product> findBySubCategoryName(String subCategory, Pageable pageable);
 
 }

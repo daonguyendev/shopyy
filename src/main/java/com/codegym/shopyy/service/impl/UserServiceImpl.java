@@ -1,7 +1,7 @@
 package com.codegym.shopyy.service.impl;
 
-import com.codegym.shopyy.model.dto.UserDto;
-import com.codegym.shopyy.model.entity.User;
+import com.codegym.shopyy.dto.request.UserDto;
+import com.codegym.shopyy.model.User;
 import com.codegym.shopyy.repository.UserRepository;
 import com.codegym.shopyy.service.IUserService;
 import jakarta.transaction.Transactional;

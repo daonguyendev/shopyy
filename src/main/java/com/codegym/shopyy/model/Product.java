@@ -42,7 +42,7 @@ public class Product {
     private Integer quantity;
 
     @Column(nullable = false)
-    private String avatar;
+    private String img;
 
     @ManyToOne
     @JoinColumn(name = "sub_category_id", nullable = false)
