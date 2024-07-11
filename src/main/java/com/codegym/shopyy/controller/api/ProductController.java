@@ -73,8 +73,8 @@ public class ProductController {
             product.setQuantity(productRequestDto.getQuantity());
             product.setImg(productRequestDto.getImg());
 //            product.setSubCategory(productRequestDto.getSubCategory());
-            product.setColors(productRequestDto.getColors());
-            product.setSizes(productRequestDto.getSizes());
+//            product.setColors(productRequestDto.getColors());
+//            product.setSizes(productRequestDto.getSizes());
         }
 
         ResponsePage responsePage = productService.save(productRequestDto);

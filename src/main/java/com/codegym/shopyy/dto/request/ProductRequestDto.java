@@ -31,8 +31,8 @@ public class ProductRequestDto {
 
     private Long subCategory;
 
-    private List<Color> colors;
+    private Long colors;
 
-    private List<Size> sizes;
+    private Long sizes;
 
 }

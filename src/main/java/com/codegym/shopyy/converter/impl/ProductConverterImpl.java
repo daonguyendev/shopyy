@@ -3,6 +3,7 @@ package com.codegym.shopyy.converter.impl;
 import com.codegym.shopyy.converter.IProductConverter;
 import com.codegym.shopyy.dto.request.ProductRequestDto;
 import com.codegym.shopyy.entities.Product;
+import com.codegym.shopyy.entities.SubCategory;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,8 @@ public class ProductConverterImpl implements IProductConverter {
         LOGGER.debug("ProductConverterImpl -> dtoToEntity");
         Product product = new Product();
         BeanUtils.copyProperties(productRequestDto, product);
+        SubCategory subCategory = SubCategory.builder().id(productRequestDto.getSubCategory()).build();
+        product.setSubCategory(subCategory);
         return product;
     }
 }
