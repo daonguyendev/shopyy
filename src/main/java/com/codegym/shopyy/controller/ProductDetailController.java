@@ -33,7 +33,7 @@ public class ProductDetailController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDetail> edit(@RequestBody ProductDetail productDetail, @PathVariable Long id) {
+    public ResponseEntity<ProductDetail> save(@RequestBody ProductDetail productDetail, @PathVariable Long id) {
         productDetail.setId(id);
         productDetailService.save(productDetail);
         return new ResponseEntity<>(productDetailService.findById(id).get(), HttpStatus.OK);
