@@ -1,14 +1,13 @@
 package com.codegym.shopyy.service.impl;
 
-import com.codegym.shopyy.model.Customer;
-import com.codegym.shopyy.model.Role;
-import com.codegym.shopyy.model.User;
-import com.codegym.shopyy.model.dto.RegistrationDto;
+import com.codegym.shopyy.entities.Customer;
+import com.codegym.shopyy.entities.Role;
+import com.codegym.shopyy.entities.User;
+import com.codegym.shopyy.dto.RegistrationDto;
 import com.codegym.shopyy.repository.ICustomerRepository;
 import com.codegym.shopyy.repository.IRoleRepository;
 import com.codegym.shopyy.repository.IUserRepository;
 import com.codegym.shopyy.service.ICustomerService;
-import com.codegym.shopyy.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;

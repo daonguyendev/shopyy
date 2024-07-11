@@ -1,4 +1,5 @@
-package com.codegym.shopyy.model.dto;
+
+package com.codegym.shopyy.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,13 +14,8 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RegistrationDto {
-    private String fullName;
+public class UserDto {
     private String username;
-    private String email;
-    private String phoneNumber;
-    private String gender;
-    private Date dob;
-    private String avatar;
+
     private String password;
 }

@@ -1,4 +1,4 @@
-package com.codegym.shopyy.model;
+package com.codegym.shopyy.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

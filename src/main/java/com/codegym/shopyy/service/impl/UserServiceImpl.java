@@ -1,8 +1,8 @@
 package com.codegym.shopyy.service.impl;
 
 import com.codegym.shopyy.model.dto.UpdatePasswordRequest;
-import com.codegym.shopyy.model.dto.UserDto;
-import com.codegym.shopyy.model.User;
+import com.codegym.shopyy.dto.UserDto;
+import com.codegym.shopyy.entities.User;
 import com.codegym.shopyy.repository.IUserRepository;
 import com.codegym.shopyy.service.IUserService;
 import jakarta.transaction.Transactional;
@@ -56,11 +56,12 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void save(User user) {
-        if (!user.getPassword().isEmpty()) {
-            String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(10));
-            user.setPassword(hashedPassword);
+    public void save(UserDto userDto) {
+        if (!userDto.getPassword().isEmpty()) {
+            String hashedPassword = BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt(10));
+            userDto.setPassword(hashedPassword);
         }
+        User user = modelMapper.map(userDto, User.class);
         userRepository.save(user);
     }
 
@@ -73,14 +74,24 @@ public class UserServiceImpl implements IUserService {
     public boolean changePassword(UpdatePasswordRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        if (username != null){
+        if (username != null) {
             User user = userRepository.findByUsername(username);
-            if(passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())){
+            if (passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
                 user.setPassword(passwordEncoder.encode(request.getNewPassword()));
                 userRepository.save(user);
                 return true;
             }
         }
         return false;
+    }
+
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new SecurityException("You are not authenticated");
+        }
+
+        String username = authentication.getName();
+        return userRepository.findByUsername(username);
     }
 }

@@ -3,8 +3,8 @@ package com.codegym.shopyy.service.impl;
 import com.codegym.shopyy.converter.ICategoryConverter;
 import com.codegym.shopyy.dto.request.CategoryRequestDto;
 import com.codegym.shopyy.dto.response.ResponsePage;
-import com.codegym.shopyy.model.Category;
-import com.codegym.shopyy.model.SubCategory;
+import com.codegym.shopyy.entities.Category;
+import com.codegym.shopyy.entities.SubCategory;
 import com.codegym.shopyy.repository.ICategoryRepository;
 import com.codegym.shopyy.repository.ISubCategoryRepository;
 import com.codegym.shopyy.service.ICategoryService;
@@ -17,6 +17,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 
 @Service
@@ -74,10 +76,12 @@ public class CategoryServiceImpl implements ICategoryService {
         }
     }
 
+
     @Override
+    @Transactional
     public void deleteById(Long id) {
+        categoryRepository.deleteSubCategoriesByCategoryId(id);
         categoryRepository.deleteById(id);
     }
-
 
 }

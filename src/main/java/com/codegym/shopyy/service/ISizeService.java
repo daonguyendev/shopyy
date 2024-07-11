@@ -1,6 +1,6 @@
 package com.codegym.shopyy.service;
 
-import com.codegym.shopyy.model.Size;
+import com.codegym.shopyy.entities.Size;
 
 public interface ISizeService {
 

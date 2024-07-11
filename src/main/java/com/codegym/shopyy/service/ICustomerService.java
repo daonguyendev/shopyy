@@ -1,7 +1,7 @@
 package com.codegym.shopyy.service;
 
-import com.codegym.shopyy.model.Customer;
-import com.codegym.shopyy.model.dto.RegistrationDto;
+import com.codegym.shopyy.entities.Customer;
+import com.codegym.shopyy.dto.RegistrationDto;
 
 import java.util.List;
 

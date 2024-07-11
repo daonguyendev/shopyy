@@ -1,6 +1,7 @@
 package com.codegym.shopyy.service;
 
-import com.codegym.shopyy.model.dto.RoleDto;
+
+import com.codegym.shopyy.dto.RoleDto;
 
 import java.util.Optional;
 

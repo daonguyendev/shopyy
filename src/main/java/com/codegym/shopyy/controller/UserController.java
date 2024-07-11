@@ -1,9 +1,7 @@
 package com.codegym.shopyy.controller;
 
-import com.codegym.shopyy.model.User;
+import com.codegym.shopyy.dto.UserDto;
 import com.codegym.shopyy.model.dto.UpdatePasswordRequest;
-import com.codegym.shopyy.model.dto.UserDto;
-import com.codegym.shopyy.payload.request.SearchRequest;
 import com.codegym.shopyy.service.ISecurityService;
 import com.codegym.shopyy.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +34,8 @@ public class UserController {
         if (!securityService.isAuthenticated() && !securityService.isValidToken(authToken)) {
             return new ResponseEntity<String>("Responding with unauthorized error. Message - {}", HttpStatus.UNAUTHORIZED);
         }
-        List<UserDto> userDtos = userService.getUsers();
+
+        List<UserDto> userDtos  =  userService.getUsers();
         if (userDtos.isEmpty()) {
             return new ResponseEntity<List<UserDto>>(HttpStatus.NO_CONTENT);
         }
@@ -68,5 +67,14 @@ public class UserController {
             return new ResponseEntity<UserDto>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody UserDto userDto) {
+//        if (userService.getUserByEmail(userDto.getEmail())!= null) {
+//            return new ResponseEntity<>("Email đã tồn tại!", HttpStatus.CONFLICT);
+//        }
+        userService.save(userDto);
+        return new ResponseEntity<>("Tạo tài khoản thành công!", HttpStatus.CREATED);
     }
 }

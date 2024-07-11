@@ -1,6 +1,6 @@
 package com.codegym.shopyy.repository;
 
-import com.codegym.shopyy.model.Customer;
+import com.codegym.shopyy.entities.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,6 +1,6 @@
 package com.codegym.shopyy.controller;
 
-import com.codegym.shopyy.model.dto.RegistrationDto;
+import com.codegym.shopyy.dto.RegistrationDto;
 import com.codegym.shopyy.payload.request.LoginRequest;
 import com.codegym.shopyy.payload.response.ForbiddenResponse;
 import com.codegym.shopyy.payload.response.LoginResponse;

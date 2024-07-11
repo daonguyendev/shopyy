@@ -3,14 +3,12 @@ package com.codegym.shopyy.controller.api;
 import com.codegym.shopyy.constant.PageConstant;
 import com.codegym.shopyy.dto.request.ProductRequestDto;
 import com.codegym.shopyy.dto.response.ResponsePage;
-import com.codegym.shopyy.model.Product;
+import com.codegym.shopyy.entities.Product;
 import com.codegym.shopyy.service.impl.ProductServiceImpl;
-
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +35,7 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<Page<Product>> homeProduct(@RequestParam(defaultValue = "", required = false) String search,
-                                                     Pageable pageable) {
+                                                     @PageableDefault(page = PageConstant.DEFAULT_PAGE, size = PageConstant.PAGE_SIZE) Pageable pageable) {
 
         Page<Product> productPage;
         if (!search.isEmpty()) {
@@ -73,8 +71,8 @@ public class ProductController {
             product.setPrice(productRequestDto.getPrice());
             product.setDescription(productRequestDto.getDescription());
             product.setQuantity(productRequestDto.getQuantity());
-            product.setAvatar(productRequestDto.getAvatar());
-            product.setSubCategory(productRequestDto.getSubCategory());
+            product.setImg(productRequestDto.getImg());
+//            product.setSubCategory(productRequestDto.getSubCategory());
             product.setColors(productRequestDto.getColors());
             product.setSizes(productRequestDto.getSizes());
         }
@@ -102,8 +100,10 @@ public class ProductController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Page<Product>> searchProducts(@RequestParam String keyword, @PageableDefault(page = PageConstant.DEFAULT_PAGE, size = PageConstant.PAGE_SIZE) Pageable pageable) {
-        Page<Product> productPage = productService.findByName(pageable, keyword);
+    public ResponseEntity<Page<Product>> searchProducts(@RequestParam String keyword, @PageableDefault(
+            page = PageConstant.DEFAULT_PAGE,
+            size = PageConstant.PAGE_SIZE) Pageable pageable) {
+        Page<Product> productPage = productService.searchProducts(keyword, pageable);
 
         if (productPage.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -127,16 +127,5 @@ public class ProductController {
         return new ResponseEntity<>(productPage, HttpStatus.OK);
     }
 
-//    @GetMapping("/by-subcategory")
-//    public Page<Product> getProductsSortedBySubCategory(@PageableDefault(page = PageConstant.DEFAULT_PAGE, size = PageConstant.PAGE_SIZE) Pageable pageable) {
-//        Pageable sortedBySubCategoryPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("subCategory.name"));
-//        return productService.findAllSortedBySubCategory(sortedBySubCategoryPageable);
-//    }
-
-    @GetMapping("/by-subcategory")
-    public ResponseEntity<Page<Product>> getProductsBySubCategoryName(@RequestParam String subCategoryName, @PageableDefault(page = PageConstant.DEFAULT_PAGE) Pageable pageable) {
-        Page<Product> products = productService.findBySubCategoryName(subCategoryName, pageable);
-        return new ResponseEntity<>(products, HttpStatus.OK);
-    }
 
 }
