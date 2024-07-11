@@ -14,7 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class Product {
     private Integer quantity;
 
     @Column(nullable = false)
-    private String avatar;
+    private String img;
 
     @ManyToOne
     @JoinColumn(name = "sub_category_id", nullable = false)
@@ -66,4 +65,5 @@ public class Product {
     )
     @JsonIgnoreProperties({"products"})
     private List<Size> sizes;
+
 }

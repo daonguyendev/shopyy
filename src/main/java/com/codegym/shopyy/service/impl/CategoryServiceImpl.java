@@ -17,6 +17,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 
 @Service
@@ -74,10 +76,12 @@ public class CategoryServiceImpl implements ICategoryService {
         }
     }
 
+
     @Override
+    @Transactional
     public void deleteById(Long id) {
+        categoryRepository.deleteSubCategoriesByCategoryId(id);
         categoryRepository.deleteById(id);
     }
-
 
 }

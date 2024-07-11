@@ -84,16 +84,14 @@ public class CategoryController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
-        Optional<Category> categoryOptional = categoryService.findById(id);
-        if (categoryOptional.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        Optional<Category> existingCategory = categoryService.findById(id);
+        if (existingCategory.isPresent()) {
+            categoryService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-
-        categoryService.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 
     @PostMapping("/search")
     public ResponseEntity<Map<Category, Iterable<SubCategory>>> searchCategory(@PageableDefault(page = PageConstant.DEFAULT_PAGE) Pageable pageable,

@@ -1,5 +1,5 @@
-package com.codegym.shopyy.entities;
 
+package com.codegym.shopyy.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;

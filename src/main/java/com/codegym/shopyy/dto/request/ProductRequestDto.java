@@ -2,7 +2,6 @@ package com.codegym.shopyy.dto.request;
 
 import com.codegym.shopyy.entities.Color;
 import com.codegym.shopyy.entities.Size;
-import com.codegym.shopyy.entities.SubCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,9 +27,9 @@ public class ProductRequestDto {
 
     private Integer quantity;
 
-    private String avatar;
+    private String img;
 
-    private SubCategory subCategory;
+    private Long subCategory;
 
     private List<Color> colors;
 

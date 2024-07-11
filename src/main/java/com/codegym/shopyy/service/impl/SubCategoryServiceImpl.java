@@ -17,6 +17,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
 public class SubCategoryServiceImpl implements ISubCategoryService {
@@ -73,7 +75,9 @@ public class SubCategoryServiceImpl implements ISubCategoryService {
 
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
+        subCategoryRepository.deleteProductsBySubCategoryId(id);
         subCategoryRepository.deleteById(id);
     }
 
