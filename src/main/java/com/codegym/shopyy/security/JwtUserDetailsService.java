@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -30,7 +31,8 @@ public class JwtUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User " + username + "was not found in database!");
         }
 
-        List<Role> roles = userRepository.findRolesByUsername(username);
+//        List<Role> roles = userRepository.findRolesByUsername(username);
+        Set<Role> roles = user.getRoles();
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         for (Role role: roles) {
