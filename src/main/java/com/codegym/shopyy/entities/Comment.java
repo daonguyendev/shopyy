@@ -34,5 +34,5 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "product_detail_id", nullable = false)
     @JsonIgnoreProperties({"comments"})
-    private ProductDetail productDetail;
+    private Product product;
 }
