@@ -1,10 +1,6 @@
 package com.codegym.shopyy.repository;
 
-<<<<<<< HEAD
-import com.codegym.shopyy.model.Category;
-=======
 import com.codegym.shopyy.entities.Category;
->>>>>>> 7924e1fc9aad65f352ed912209beac4f6ffd9d96
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;

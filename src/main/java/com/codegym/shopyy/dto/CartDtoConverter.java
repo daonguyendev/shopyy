@@ -24,7 +24,7 @@ public class CartDtoConverter {
         dto.setProductName(item.getProduct().getName());
         dto.setStockQuantity(item.getQuantity());
         dto.setPrice(item.getProduct().getPrice());
-        dto.setImageUrl(item.getProduct().getAvatar());
+        dto.setImageUrl(item.getProduct().getImg());
         return dto;
     }
 }

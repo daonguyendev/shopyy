@@ -1,13 +1,8 @@
 package com.codegym.shopyy.security;
 
-<<<<<<< HEAD
-import com.codegym.shopyy.model.User;
-import com.codegym.shopyy.repository.UserRepository;
-=======
 import com.codegym.shopyy.entities.Role;
 import com.codegym.shopyy.entities.User;
 import com.codegym.shopyy.repository.IUserRepository;
->>>>>>> 7924e1fc9aad65f352ed912209beac4f6ffd9d96
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

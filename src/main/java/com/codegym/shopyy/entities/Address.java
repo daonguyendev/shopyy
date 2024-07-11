@@ -1,9 +1,4 @@
-<<<<<<< HEAD:src/main/java/com/codegym/shopyy/model/Address.java
-package com.codegym.shopyy.model;
-=======
 package com.codegym.shopyy.entities;
->>>>>>> 7924e1fc9aad65f352ed912209beac4f6ffd9d96:src/main/java/com/codegym/shopyy/entities/Address.java
-
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

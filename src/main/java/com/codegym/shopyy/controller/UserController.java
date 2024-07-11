@@ -1,10 +1,7 @@
 package com.codegym.shopyy.controller;
 
-<<<<<<< HEAD
-import com.codegym.shopyy.dto.request.UserDto;
-=======
+
 import com.codegym.shopyy.dto.UserDto;
->>>>>>> 7924e1fc9aad65f352ed912209beac4f6ffd9d96
 import com.codegym.shopyy.payload.request.SearchRequest;
 import com.codegym.shopyy.service.ISecurityService;
 import com.codegym.shopyy.service.IUserService;
@@ -37,7 +34,8 @@ public class UserController {
         if (!securityService.isAuthenticated() && !securityService.isValidToken(authToken)) {
             return new ResponseEntity<String>("Responding with unauthorized error. Message - {}", HttpStatus.UNAUTHORIZED);
         }
-        List<UserDto> userDtos = userService.getUsers();
+
+        List<UserDto> userDtos  =  userService.getUsers();
         if (userDtos.isEmpty()) {
             return new ResponseEntity<List<UserDto>>(HttpStatus.NO_CONTENT);
         }

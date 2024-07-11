@@ -1,14 +1,9 @@
 package com.codegym.shopyy.service.impl;
 
-<<<<<<< HEAD
-import com.codegym.shopyy.dto.request.RoleDto;
-import com.codegym.shopyy.model.Role;
-import com.codegym.shopyy.repository.RoleRepository;
-=======
+
 import com.codegym.shopyy.dto.RoleDto;
 import com.codegym.shopyy.entities.Role;
 import com.codegym.shopyy.repository.IRoleRepository;
->>>>>>> 7924e1fc9aad65f352ed912209beac4f6ffd9d96
 import com.codegym.shopyy.service.IRoleService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;

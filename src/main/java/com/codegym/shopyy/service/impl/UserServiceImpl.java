@@ -1,14 +1,9 @@
 package com.codegym.shopyy.service.impl;
 
-<<<<<<< HEAD
-import com.codegym.shopyy.dto.request.UserDto;
-import com.codegym.shopyy.model.User;
-import com.codegym.shopyy.repository.UserRepository;
-=======
+
 import com.codegym.shopyy.dto.UserDto;
 import com.codegym.shopyy.entities.User;
 import com.codegym.shopyy.repository.IUserRepository;
->>>>>>> 7924e1fc9aad65f352ed912209beac4f6ffd9d96
 import com.codegym.shopyy.service.IUserService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
