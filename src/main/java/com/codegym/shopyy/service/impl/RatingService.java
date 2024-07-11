@@ -1,6 +1,6 @@
 package com.codegym.shopyy.service.impl;
 
-import com.codegym.shopyy.model.Rating;
+import com.codegym.shopyy.entities.Rating;
 import com.codegym.shopyy.repository.IRatingRepository;
 import com.codegym.shopyy.service.IRatingService;
 import org.springframework.beans.factory.annotation.Autowired;

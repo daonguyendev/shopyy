@@ -1,7 +1,6 @@
 package com.codegym.shopyy.controller;
 
-
-import com.codegym.shopyy.model.Rating;
+import com.codegym.shopyy.entities.Rating;
 import com.codegym.shopyy.service.impl.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

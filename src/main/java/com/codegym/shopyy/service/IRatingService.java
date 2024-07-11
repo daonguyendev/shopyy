@@ -1,11 +1,12 @@
 package com.codegym.shopyy.service;
 
-import com.codegym.shopyy.model.Comment;
-import com.codegym.shopyy.model.Rating;
+import com.codegym.shopyy.entities.Rating;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface IRatingService {
     Optional<Rating> findById(Long id);
     Iterable<Rating> findAll();

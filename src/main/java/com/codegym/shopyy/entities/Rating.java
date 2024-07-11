@@ -1,4 +1,4 @@
-package com.codegym.shopyy.model;
+package com.codegym.shopyy.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

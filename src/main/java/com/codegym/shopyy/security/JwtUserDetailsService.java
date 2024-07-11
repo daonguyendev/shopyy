@@ -5,6 +5,7 @@ import com.codegym.shopyy.entities.User;
 import com.codegym.shopyy.repository.IUserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,11 @@ import java.util.Set;
 
 @Service
 @Transactional
+@ComponentScan(basePackageClasses = {
+        JwtUserDetailsService.class,
+        JwtAuthEntryPoint.class,
+        IUserRepository.class
+})
 public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
